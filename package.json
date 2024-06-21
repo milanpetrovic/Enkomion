@@ -1,0 +1,16 @@
+{
+  "name": "enkomion",
+  "version": "1.0.0",
+  "description": "Test project",
+  "scripts": {
+    "dev": "npx tailwindcss -i ./assets/tailwind.css -o ./assets/section-enkomion.css --watch --minify"
+  },
+  "keywords": [
+    "shopify"
+  ],
+  "author": "Milan Petrovic",
+  "license": "ISC",
+  "devDependencies": {
+    "tailwindcss": "^3.4.4"
+  }
+}

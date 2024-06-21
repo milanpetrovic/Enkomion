@@ -1,0 +1,170 @@
+{{ 'section-enkomion.css' | asset_url | stylesheet_tag }}
+
+    {% if section.settings.badge_placement == 'top-left' %}
+        {% assign badge_class = 'top-0 left-0' %}
+    {% elsif section.settings.badge_placement == 'top-right' %}
+        {% assign badge_class = 'top-0 right-0' %}
+    {% elsif section.settings.badge_placement == 'bottom-left' %}
+        {% assign badge_class = 'bottom-0 left-0' %}
+    {% elsif section.settings.badge_placement == 'bottom-right' %}
+        {% assign badge_class = 'bottom-0 right-0' %}
+    {% endif %}
+
+    {%  assign button_classes = 'justify-center bg-slate-900 hover:bg-cyan-950 py-4 px-8 rounded-2xl tracking-wider duration-300 transition-colors ease-in-out text-center flex md:inline-flex items-center text-white hover:text-white focus:text-white sm:max-w-[50%] mx-auto text-2xl lg:text-3xl' %}
+
+<div class="max-w-full flex flex-col lg:flex-row">
+    <div class="flex flex-col justify-center px-20 py-12 text-center lg:text-left">
+        {%- for block in section.blocks -%}
+        {%- case block.type -%}
+        {%- when 'doctor_name' -%}
+            <p class="mb-6 text-amber-400 font-semibold text-2xl lg:text-4xl">{{ block.settings.doctor_name | escape }}</p>
+        {%- when 'headline' -%}
+            <h2 class="text-slate-900 text-5xl md:text-6xl lg:text-7xl mb-8 font-bold">{{ block.settings.headline | escape }}</h2>
+        {%- when 'text' -%}
+            <div class="text-slate-900 text-2xl md:text-3xl enkomion-text">{{ block.settings.text }}</div>
+        {%- when 'button' -%}
+        {% assign button_label = block.settings.button_label | default: '' %}
+        {% assign button_link = block.settings.button_link | default: '' %}
+
+        {% if button_link != blank and button_label != blank %}
+        <div class='mt-10'>
+            <a href="{{ button_link }}" class="{{ button_classes }}">{{ button_label }}</a>
+        </div>
+        {% endif %}
+
+        {%- endcase -%}
+        {%- endfor -%}
+    </div>
+    <div class="relative order-first lg:order-last">
+        {% if section.settings.main_image %}
+            {{ section.settings.main_image | image_url: width: 1500 | image_tag: preload: true }}
+        {% endif %}
+
+        {% if section.settings.badge_image %}
+            <div class="max-w-[100px] absolute {{ badge_class }}">
+                {{ section.settings.badge_image | image_url: width: 100 | image_tag }}
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+{% schema %}
+{
+"name": "Enkomion Hero",
+"class": "enkomion-section",
+"settings": [
+    {
+        "type": "select",
+        "id": "badge_placement",
+        "label": "Badge Placement",
+        "options": [
+            {
+            "value": "top-left",
+            "label": "Top Left"
+            },
+            {
+            "value": "top-right",
+            "label": "Top Right"
+            },
+            {
+            "value": "bottom-left",
+            "label": "Bottom Left"
+            },
+            {
+            "value": "bottom-right",
+            "label": "Bottom Right"
+            }
+        ],
+        "default": "top-left"
+    },
+    {
+            "type": "image_picker",
+            "id": "main_image",
+            "label": "Main Image"
+        },
+        {
+            "type": "image_picker",
+            "id": "badge_image",
+            "label": "Badge Image"
+        }
+],
+"blocks": [
+    {
+      "type": "doctor_name",
+      "name": "Doctor's Name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "doctor_name",
+          "default": "Dr. Ernie Sanderson",
+          "label": "Doctor's Name"
+        }
+      ]
+    },
+    {
+      "type": "headline",
+      "name": "Headline",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "headline",
+          "default": "Veterinarian-Approved",
+          "label": "Headline"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "Text",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "text",
+          "default": "<p>All products from Dr. Ernie's are vetted and approved by a qualified veterinarian, ensuring top quality care for your pet.</p>",
+          "label": "Text"
+        }
+      ]
+    },
+    {
+      "type": "button",
+      "name": "Button",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "button_label",
+          "default": "View Products",
+          "label": "Button Label"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button Link"
+        }
+      ]
+    }
+  ],
+"presets": [
+  {
+    "name": "Enkomion Hero",
+    "blocks": [
+        {
+          "type": "doctor_name"
+        },
+        {
+          "type": "headline"
+        },
+        {
+          "type": "text"
+        },
+        {
+          "type": "button"
+        }
+      ]
+  }
+]
+}
+{% endschema %}
