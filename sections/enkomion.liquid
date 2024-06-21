@@ -1,36 +1,36 @@
 {{ 'section-enkomion.css' | asset_url | stylesheet_tag }}
 
-    {% if section.settings.badge_placement == 'top-left' %}
-        {% assign badge_class = 'top-0 left-0' %}
-    {% elsif section.settings.badge_placement == 'top-right' %}
-        {% assign badge_class = 'top-0 right-0' %}
-    {% elsif section.settings.badge_placement == 'bottom-left' %}
-        {% assign badge_class = 'bottom-0 left-0' %}
-    {% elsif section.settings.badge_placement == 'bottom-right' %}
-        {% assign badge_class = 'bottom-0 right-0' %}
-    {% endif %}
+{% if section.settings.badge_placement == 'top-left' %}
+    {% assign badge_class = 'top-0 left-0' %}
+{% elsif section.settings.badge_placement == 'top-right' %}
+    {% assign badge_class = 'top-0 right-0' %}
+{% elsif section.settings.badge_placement == 'bottom-left' %}
+    {% assign badge_class = 'bottom-0 left-0' %}
+{% elsif section.settings.badge_placement == 'bottom-right' %}
+    {% assign badge_class = 'bottom-0 right-0' %}
+{% endif %}
 
-    {%  assign button_classes = 'justify-center bg-slate-900 hover:bg-cyan-950 py-4 px-8 rounded-2xl tracking-wider duration-300 transition-colors ease-in-out text-center flex md:inline-flex items-center text-white hover:text-white focus:text-white sm:max-w-[50%] mx-auto text-2xl lg:text-3xl' %}
+{%  assign button_classes = 'justify-center bg-slate-900 hover:bg-cyan-950 py-4 px-8 rounded-2xl tracking-wider duration-300 transition-colors ease-in-out text-center flex md:inline-flex items-center text-white hover:text-white focus:text-white sm:max-w-[50%] mx-auto text-2xl lg:text-3xl' %}
 
 <div class="max-w-full flex flex-col lg:flex-row">
     <div class="flex flex-col justify-center px-20 py-12 text-center lg:text-left">
         {%- for block in section.blocks -%}
         {%- case block.type -%}
-        {%- when 'doctor_name' -%}
-            <p class="mb-6 text-amber-400 font-semibold text-2xl lg:text-4xl">{{ block.settings.doctor_name | escape }}</p>
-        {%- when 'headline' -%}
-            <h2 class="text-slate-900 text-5xl md:text-6xl lg:text-7xl mb-8 font-bold">{{ block.settings.headline | escape }}</h2>
-        {%- when 'text' -%}
-            <div class="text-slate-900 text-2xl md:text-3xl enkomion-text">{{ block.settings.text }}</div>
-        {%- when 'button' -%}
-        {% assign button_label = block.settings.button_label | default: '' %}
-        {% assign button_link = block.settings.button_link | default: '' %}
+          {%- when 'doctor_name' -%}
+              <p class="mb-6 text-amber-400 font-semibold text-2xl lg:text-4xl">{{ block.settings.doctor_name | escape }}</p>
+          {%- when 'headline' -%}
+              <h2 class="text-slate-900 text-5xl md:text-6xl lg:text-7xl mb-8 font-bold">{{ block.settings.headline | escape }}</h2>
+          {%- when 'text' -%}
+              <div class="text-slate-900 text-2xl md:text-3xl enkomion-text">{{ block.settings.text }}</div>
+          {%- when 'button' -%}
+          {% assign button_label = block.settings.button_label | default: '' %}
+          {% assign button_link = block.settings.button_link | default: '' %}
 
-        {% if button_link != blank and button_label != blank %}
-        <div class='mt-10'>
-            <a href="{{ button_link }}" class="{{ button_classes }}">{{ button_label }}</a>
-        </div>
-        {% endif %}
+          {% if button_link != blank and button_label != blank %}
+            <div class='mt-10'>
+                <a href="{{ button_link }}" class="{{ button_classes }}">{{ button_label }}</a>
+            </div>
+          {% endif %}
 
         {%- endcase -%}
         {%- endfor -%}
@@ -78,15 +78,15 @@
         "default": "top-left"
     },
     {
-            "type": "image_picker",
-            "id": "main_image",
-            "label": "Main Image"
-        },
-        {
-            "type": "image_picker",
-            "id": "badge_image",
-            "label": "Badge Image"
-        }
+        "type": "image_picker",
+        "id": "main_image",
+        "label": "Main Image"
+    },
+    {
+        "type": "image_picker",
+        "id": "badge_image",
+        "label": "Badge Image"
+    }
 ],
 "blocks": [
     {
